@@ -17,6 +17,7 @@
         <e p="InputActions" t="Include" />
         <e p="Prefabs" t="Include">
           <e p="Entities" t="Include" />
+          <e p="ParticleSystems" t="Include" />
           <e p="UI" t="Include">
             <e p="Buttons" t="Include" />
             <e p="UIElements" t="Include" />

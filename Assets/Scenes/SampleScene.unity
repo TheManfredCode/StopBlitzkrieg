@@ -616,6 +616,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1664039288}
     m_Modifications:
+    - target: {fileID: 3208400716080906666, guid: 67f3930b927468d4a98399507c0ebfb2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4849445013547507028, guid: 67f3930b927468d4a98399507c0ebfb2, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -705,6 +709,10 @@ PrefabInstance:
       value: Loading screen
       objectReference: {fileID: 0}
     - target: {fileID: 4849445013547507031, guid: 67f3930b927468d4a98399507c0ebfb2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6992655368971913673, guid: 67f3930b927468d4a98399507c0ebfb2, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
