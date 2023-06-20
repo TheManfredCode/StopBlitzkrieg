@@ -1,0 +1,21 @@
+ManifestFileVersion: 0
+CRC: 1477121124
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: ed5309d06a90e984e26d189fdd5f7f7e
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 4df8c69f2c8a6ad9e3cbf82bb83e4dc3
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Resources/TankSprites/KV.png
+- Assets/Resources/TankSprites/Churchill.png
+- Assets/Resources/TankSprites/Tiger.png
+Dependencies: []
