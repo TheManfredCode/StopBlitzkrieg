@@ -6,6 +6,5 @@ public class AssetBundlesCreator
     static void BuildAllAssetBundles()
     {
         BuildPipeline.BuildAssetBundles("Assets/AssetBundles", BuildAssetBundleOptions.None, BuildTarget.Android);
-        BuildPipeline.BuildAssetBundles("Assets/AssetBundles", BuildAssetBundleOptions.None, BuildTarget.StandaloneWindows64);
     }
 }

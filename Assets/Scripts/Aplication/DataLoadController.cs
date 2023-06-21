@@ -28,10 +28,10 @@ namespace Aplication
         private IEnumerator LoadData()
         {
             Debug.Log("[DataLoadController] Start loading asset bundles.");
-            yield return _spritesAssetBundleLoader.LoadSprites();
+            yield return _spritesAssetBundleLoader.LoadAssetBundle();
             Debug.Log("[DataLoadController] Start loading score coeficient.");
             yield return _scoreCoeficientLoader.LoadCoefitient();
-            Debug.Log("All data loaded.");
+            Debug.Log("[DataLoadController]All data loaded.");
             AllDataLoaded?.Invoke();
         }
     }

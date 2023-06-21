@@ -1,21 +1,21 @@
-﻿using DefaultNamespace;
+﻿using System;
+using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerInputController : MonoBehaviour
 {
-    [SerializeField] private InputAction leftClick;
-    [SerializeField] private Camera mainCamera;
-        
-    private void Start()
+    [SerializeField] private Camera _mainCamera;
+    [SerializeField] private InputManager _inputManager;
+
+    private void OnEnable()
     {
-        leftClick.Enable();
-        leftClick.started += OnLeftClick;
+        _inputManager.OnStartTouch += OnTouch;
     }
-        
-    private void OnLeftClick(InputAction.CallbackContext context)
+
+    private void OnTouch(Vector2 screenPosition, float time)
     {
-        var clickedCollider = GetRayIntersection().collider;
+        var clickedCollider = GetRayIntersection(screenPosition).collider;
             
         if (!clickedCollider) return;
             
@@ -23,15 +23,14 @@ public class PlayerInputController : MonoBehaviour
             clickableObject.OnClick();
     }
 
-    private RaycastHit2D GetRayIntersection()
+    private RaycastHit2D GetRayIntersection(Vector2 touchPosition)
     {
-        var ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
+        var ray = _mainCamera.ScreenPointToRay(touchPosition);
         return Physics2D.GetRayIntersection(ray);
     }
 
     private void OnDisable()
     {
-        leftClick.performed -= OnLeftClick;
-        leftClick.Disable();
+        _inputManager.OnStartTouch += OnTouch;
     }
 }

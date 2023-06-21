@@ -2,10 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class SpritesAssetBundleLoader
 {
-    private const string URL = "https://drive.google.com/uc?export=download&id=1fBxgF0Yb1q2_h7b926zGNHl0wSdW_tuc";
+    private const string URL = "https://drive.google.com/uc?export=download&id=1_Zid0wezqU88n_mA3iSm7PJT3y7XfiBJ";
     private List<Sprite> _sprites;
 
     public event Action DataLoaded;
@@ -17,31 +18,33 @@ public class SpritesAssetBundleLoader
     
     public List<Sprite> Sprites => _sprites;
 
-    public IEnumerator LoadSprites()
+    public IEnumerator LoadAssetBundle()
     {
-        WWW webRequest = new WWW(URL);
-
-        yield return webRequest;
-
-        while (webRequest.isDone == false)
+        using (UnityWebRequest webRequest = UnityWebRequestAssetBundle.GetAssetBundle(URL))
         {
-            yield return null;
-        }
+            yield return webRequest.SendWebRequest();
 
-        if (webRequest.error == null)
-        {
-            var bundleObjects = webRequest.assetBundle.LoadAllAssetsAsync().allAssets;
-            
-            foreach (var bundleObject in bundleObjects)
-                if (bundleObject is Sprite)
-                    _sprites.Add(bundleObject as Sprite);
+            if (webRequest.result == UnityWebRequest.Result.ConnectionError ||
+                webRequest.result == UnityWebRequest.Result.ProtocolError)
+            {
+                Debug.LogWarning("[LoadAssetBundle] " + webRequest.error);
+            }
+            else
+            {
+                AssetBundle bundle = DownloadHandlerAssetBundle.GetContent(webRequest);
+                var bundleObjects = bundle.LoadAllAssets();
 
-            DataLoaded?.Invoke();
-            Debug.Log("[LoadAssetBundle] Asset bundles LOADED");
-        }
-        else
-        {
-            Debug.LogError("[LoadAssetBundle] " + webRequest.error);
+                 foreach (var bundleObject in bundleObjects)
+                     if (bundleObject is Sprite)
+                         _sprites.Add(bundleObject as Sprite);
+
+                bundle.Unload(false);
+                yield return new WaitForEndOfFrame();
+
+                DataLoaded?.Invoke();
+                Debug.Log("[LoadAssetBundle] Asset bundles LOADED");
+            }
+            webRequest.Dispose();
         }
     }
 }
