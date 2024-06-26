@@ -7,21 +7,30 @@ public class Enemy : MonoBehaviour, IClickable
 {
     [SerializeField] private EnemyMover _mover;
     [SerializeField] private EnemyView _view;
-    
+
+    private EnemyBehaviour _enemyBehaviour;
     private bool _isClickable;
+    private bool _hasShield = true;
 
     public event Action Killed;
 
     public bool IsClickable => _isClickable;
-    
+
+    public bool HasShield => _hasShield;
+
+    private void Awake()
+    {
+        _enemyBehaviour = new EnemyBehaviour(this);
+    }
+
     public void EnableClickable()
     {
         _isClickable = true;
     }
 
-    public void SwitchHardMode(bool isHardModeOn)
+    public void SwitchFastMoveMode(bool isHardModeOn)
     {
-        _mover.SwitchHardModeSpeed(isHardModeOn);
+        _mover.SwitchFastMoveMode(isHardModeOn);
     }
 
     public void ChangeSprite(Sprite sprite)
@@ -29,17 +38,44 @@ public class Enemy : MonoBehaviour, IClickable
         _view.SetSprite(sprite);
     }
 
-    public void Die()
+    public void ChangeShieldVisible(bool value)
     {
+        if (value)
+        {
+            _view.ChangeShieldVisible(true);
+            _hasShield = false;
+            _isClickable = false;
+            _view.ChangeShieldIndicatorVisible(false);
+            return;
+        }
+
+        _isClickable = true;
+        _view.ChangeShieldVisible(false);
+    }
+
+    public void Die(bool isInitializing = false)
+    {
+        if(!isInitializing) 
+            Killed?.Invoke();
+
         _isClickable = false;
-        Killed?.Invoke();
         gameObject.SetActive(false);
+    }
+
+    public void Activate()
+    {
+        _enemyBehaviour.ChangeState<AttackState>();
+    }
+
+    public void Teleport()
+    {
+        var position = transform.position;
+        transform.position = new Vector3(position.x + 100, position.y);
     }
 
     public void OnClick()
     {
-        if(_isClickable)
-            Die();
+        _enemyBehaviour.OnClick();
     }
 
     private void OnDisable()

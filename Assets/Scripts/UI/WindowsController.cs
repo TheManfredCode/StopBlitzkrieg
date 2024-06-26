@@ -63,7 +63,7 @@ namespace UI
             foreach (var window in _openedWindows)
                 window.Close();
             
-            _openedWindows = new List<BaseWindow>();
+            _openedWindows.Clear();
         }
     }
 }

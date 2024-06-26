@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputManager : MonoBehaviour
+public class InputManager
 {
     public delegate void StartTouchEvent(Vector2 position, float time);
     public event StartTouchEvent OnStartTouch;
@@ -11,19 +11,11 @@ public class InputManager : MonoBehaviour
     
     private TouchControlls _touchControlls;
 
-    private void Awake()
+    public InputManager()
     {
         _touchControlls = new TouchControlls();
-    }
-
-    private void OnEnable()
-    {
         _touchControlls.Enable();
-    }
-
-    private void OnDisable()
-    {
-        _touchControlls.Disable();
+        Start();
     }
 
     private void Start()

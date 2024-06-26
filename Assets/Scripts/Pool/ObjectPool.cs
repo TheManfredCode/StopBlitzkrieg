@@ -31,6 +31,9 @@ public class ObjectPool<T> : MonoBehaviour where T : MonoBehaviour
 
             _pool.Add(poolObject);
         }
+
+        //TODO remove
+        _elapsedTime = _spawnRate;
     }
     
     private void Update()

@@ -15,13 +15,14 @@ public class EnemySpawner : ObjectPool<Enemy>
     public void SwitchHardMode(bool isHardModeOn)
     {
         foreach (var enemy in Pool)
-            enemy.SwitchHardMode(isHardModeOn);
+            enemy.SwitchFastMoveMode(isHardModeOn);
     }
 
     protected override void RestartPoolObject(Enemy poolObject)
     {
         base.RestartPoolObject(poolObject);
-        poolObject.SwitchHardMode(false);
+        poolObject.Activate();
+        poolObject.SwitchFastMoveMode(false);
     }
 
     protected override void AfterObjectInstantiated(Enemy poolObject)

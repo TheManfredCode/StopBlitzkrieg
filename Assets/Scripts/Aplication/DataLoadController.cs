@@ -4,15 +4,22 @@ using UnityEngine;
 
 namespace Aplication
 {
-    public class DataLoadController : MonoBehaviour
+    public class DataLoadController
     {
         private SpritesAssetBundleLoader _spritesAssetBundleLoader;
         private ScoreCoeficientLoader _scoreCoeficientLoader;
+        private MonoBehaviour _context;
 
         public event Action AllDataLoaded;
 
         public SpritesAssetBundleLoader SpritesLoader => _spritesAssetBundleLoader;
         public ScoreCoeficientLoader ScoreCoeficientLoader => _scoreCoeficientLoader;
+
+        public DataLoadController(MonoBehaviour context)
+        {
+            _context = context;
+            Debug.Log($"[DataLoadController] Created. context - {context.GetType()}");
+        }
 
         public void Init()
         {
@@ -22,7 +29,7 @@ namespace Aplication
 
         public void StartLoadData()
         {
-            StartCoroutine(LoadData());
+            _context.StartCoroutine(LoadData());
         }
 
         private IEnumerator LoadData()

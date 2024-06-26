@@ -6,36 +6,47 @@ using DefaultNamespace;
 using UI;
 using UnityEngine;
 
-public class ApplicationBase : MonoBehaviour
+public class ApplicationBase : IDisposable
 {
-    [SerializeField] private GameController _gameController;
-    [SerializeField] private InterfaceController _interfaceController;
-    [SerializeField] private DataLoadController _dataLoadController;
+    private GameController _gameController;
+    private InterfaceController _interfaceController;
+    private DataLoadController _dataLoadController;
     
     private EnemiesSpritesController _enemiesSpritesController = new EnemiesSpritesController();
 
-    private void Awake()
+    public ApplicationBase(DataLoadController dataLoadController, InterfaceController interfaceController, GameController gameController)
+    {
+        _dataLoadController = dataLoadController;
+        _interfaceController = interfaceController;
+        _gameController = gameController;
+        
+        Debug.Log($"[ApplicationBase] Created. data controller - {dataLoadController.GetType()}");
+        
+        Init();
+    }
+    
+    private void Init()
     {
         _dataLoadController.Init();
         _gameController.Init(_dataLoadController.ScoreCoeficientLoader);
         _enemiesSpritesController.Init(_gameController.EnemiesPool, _dataLoadController.SpritesLoader);
         _interfaceController.Init(_gameController, _enemiesSpritesController);
-        
+        _dataLoadController.AllDataLoaded += OnDataLoaded;
         _dataLoadController.StartLoadData();
     }
 
     private void OnEnable()
     {
-        _dataLoadController.AllDataLoaded += OnDataLoaded;
+        
     }
 
-    private void OnDisable()
-    {
-        _dataLoadController.AllDataLoaded -= OnDataLoaded;        
-    }
-    
     private void OnDataLoaded()
     {
         _interfaceController.HidePreloader();
+    }
+
+    public void Dispose()
+    {
+        _dataLoadController.AllDataLoaded -= OnDataLoaded;
     }
 }

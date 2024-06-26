@@ -4,34 +4,33 @@ using UnityEngine;
 
 namespace DefaultNamespace
 {
-    public class GameController : MonoBehaviour
+    public class GameController : IDisposable
     {
-        [SerializeField] private ClickableArea _clickableArea;
-        [SerializeField] private EnemySpawner _enemySpawner;
-
+        private ClickableArea _clickableArea;
+        private EnemySpawner _enemySpawner;
         private ScoreHandler _scoreHandler;
         private bool _isGameStarted;
 
         public event Action GameOverEvent;
 
+        public GameController(ClickableArea clickableArea, EnemySpawner enemySpawner)
+        {
+            _clickableArea = clickableArea;
+            _enemySpawner = enemySpawner;
+        }
+
         public void Init(ScoreCoeficientLoader scoreCoeficientLoader)
         {
             _scoreHandler = new ScoreHandler(scoreCoeficientLoader);
+            InitSubscriptions();
         }
         
-        private void OnEnable()
+        private void InitSubscriptions()
         {
             _enemySpawner.Init();
             _scoreHandler.HardModeScoreReached += OnHardModeScoreReached;
             _clickableArea.ClickableAreaExit += OnClickableAreaExit;
             _enemySpawner.EnemyKilled += _scoreHandler.IncreaseScore;
-        }
-
-        private void OnDisable()
-        {
-            _scoreHandler.HardModeScoreReached -= OnHardModeScoreReached;
-            _clickableArea.ClickableAreaExit -= OnClickableAreaExit;
-            _enemySpawner.EnemyKilled -= _scoreHandler.IncreaseScore;
         }
 
         public List<Enemy> EnemiesPool => _enemySpawner.EnemiesPool;
@@ -45,7 +44,7 @@ namespace DefaultNamespace
 
         private void OnHardModeScoreReached()
         {
-            _enemySpawner.SwitchHardMode(true);
+            //_enemySpawner.SwitchHardMode(true);
         }
 
         public void StartGame()
@@ -78,6 +77,13 @@ namespace DefaultNamespace
         {
             Time.timeScale = 0;
             GameOverEvent?.Invoke();
+        }
+
+        public void Dispose()
+        {
+            _scoreHandler.HardModeScoreReached -= OnHardModeScoreReached;
+            _clickableArea.ClickableAreaExit -= OnClickableAreaExit;
+            _enemySpawner.EnemyKilled -= _scoreHandler.IncreaseScore;
         }
     }
 }

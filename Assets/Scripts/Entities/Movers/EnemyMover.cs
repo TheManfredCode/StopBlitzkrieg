@@ -6,7 +6,7 @@ namespace DefaultNamespace.Movers
     {
         [SerializeField] private float _hardModeSpeed;
         
-        public void SwitchHardModeSpeed(bool isHardModeOn)
+        public void SwitchFastMoveMode(bool isHardModeOn)
         {
             CurrentSpeed = isHardModeOn ? _hardModeSpeed : Speed;
         }

@@ -1,15 +1,15 @@
-﻿using System;
-using DefaultNamespace;
+﻿using DefaultNamespace;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class PlayerInputController : MonoBehaviour
+public class PlayerInputController
 {
-    [SerializeField] private Camera _mainCamera;
-    [SerializeField] private InputManager _inputManager;
+    private Camera _mainCamera;
+    private InputManager _inputManager;
 
-    private void OnEnable()
+    public PlayerInputController()
     {
+        _mainCamera = Camera.main;
+        _inputManager = new InputManager();
         _inputManager.OnStartTouch += OnTouch;
     }
 
@@ -27,10 +27,5 @@ public class PlayerInputController : MonoBehaviour
     {
         var ray = _mainCamera.ScreenPointToRay(touchPosition);
         return Physics2D.GetRayIntersection(ray);
-    }
-
-    private void OnDisable()
-    {
-        _inputManager.OnStartTouch += OnTouch;
     }
 }
