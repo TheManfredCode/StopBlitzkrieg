@@ -39,7 +39,7 @@ namespace DefaultNamespace
 
         private void OnClickableAreaExit()
         {
-            GameOver();
+            //GameOver();
         }
 
         private void OnHardModeScoreReached()

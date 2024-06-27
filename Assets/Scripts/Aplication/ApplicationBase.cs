@@ -33,11 +33,7 @@ public class ApplicationBase : IDisposable
         _interfaceController.Init(_gameController, _enemiesSpritesController);
         _dataLoadController.AllDataLoaded += OnDataLoaded;
         _dataLoadController.StartLoadData();
-    }
-
-    private void OnEnable()
-    {
-        
+        Ticker.Init();
     }
 
     private void OnDataLoaded()

@@ -18,10 +18,15 @@ public class EnemySpawner : ObjectPool<Enemy>
             enemy.SwitchFastMoveMode(isHardModeOn);
     }
 
+    protected override void ActivateObject(Enemy poolObject)
+    {
+        base.ActivateObject(poolObject);
+        poolObject.Activate();
+    }
+
     protected override void RestartPoolObject(Enemy poolObject)
     {
         base.RestartPoolObject(poolObject);
-        poolObject.Activate();
         poolObject.SwitchFastMoveMode(false);
     }
 

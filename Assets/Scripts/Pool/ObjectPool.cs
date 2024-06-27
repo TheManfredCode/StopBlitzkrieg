@@ -72,9 +72,14 @@ public class ObjectPool<T> : MonoBehaviour where T : MonoBehaviour
         {
             _elapsedTime = 0;
 
-            poolObject.gameObject.SetActive(true);
-            poolObject.transform.position = GetPoolObjectPosition();
+            ActivateObject(poolObject);
         }
+    }
+
+    protected virtual void ActivateObject(T poolObject)
+    {
+        poolObject.gameObject.SetActive(true);
+        poolObject.transform.position = GetPoolObjectPosition();
     }
 
     private Vector3 GetPoolObjectPosition()

@@ -1,4 +1,5 @@
 ﻿using System;
+using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,8 +17,14 @@ public class InputHandler : MonoBehaviour
         if (!context.started) return;
 
         var rayHit = Physics2D.GetRayIntersection(_mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue()));
-        if (!rayHit.collider) return;
         
-        Debug.Log(rayHit.collider.gameObject.name);
+        if (!rayHit.collider) return;
+
+        var clickable = rayHit
+            .collider.gameObject.GetComponent<IClickable>();
+
+        if (clickable == null) return;
+        
+        clickable.OnClick();
     }
 }
