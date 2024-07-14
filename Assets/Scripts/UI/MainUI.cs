@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UI.UIElements;
+using Zenject;
 
 namespace UI
 {
@@ -10,21 +11,32 @@ namespace UI
         [SerializeField] private ScoreView _scoreView;
         [SerializeField] private Button _mainMenuButton;
 
-        public event Action MainMenuButtonClicked;
+        private InterfaceController _interfaceController;
         
-        public void Init(ScoreHandler scoreHandler)
+        [Inject]
+        private void Construct(InterfaceController interfaceController)
         {
-            _scoreView.Init(scoreHandler);
+            _interfaceController = interfaceController;
         }
+        
+        // public void Init(ScoreHandler scoreHandler)
+        // {
+        //     _scoreView.Init(scoreHandler);
+        // }
 
         private void OnEnable()
         {
             _mainMenuButton.onClick.AddListener(OnMainMenuButtonClicked);
         }
 
+        private void OnDisable()
+        {
+            _mainMenuButton.onClick.RemoveListener(OnMainMenuButtonClicked);
+        }
+
         private void OnMainMenuButtonClicked()
         {
-            MainMenuButtonClicked?.Invoke();
+            _interfaceController.ShowMainMenuWindow();
         }
     }
 }

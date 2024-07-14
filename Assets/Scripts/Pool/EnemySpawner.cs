@@ -1,11 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using UI;
+using UnityEngine;
+using Zenject;
 
 public class EnemySpawner : ObjectPool<Enemy>
 {
+    private EnemiesSpritesController _spritesController;
+    
     public event Action EnemyKilled; 
 
     public List<Enemy> EnemiesPool => Pool;
+
+    [Inject]
+    private void Construct(EnemiesSpritesController spritesController)
+    {
+        _spritesController = spritesController;
+        
+        AfterConstructed();
+    }
+
+    private void AfterConstructed()
+    {
+        _spritesController.SpriteUpdated += OnSpriteUpdated;
+    }
 
     private void OnEnemyKilled()
     {
@@ -16,6 +34,12 @@ public class EnemySpawner : ObjectPool<Enemy>
     {
         foreach (var enemy in Pool)
             enemy.SwitchFastMoveMode(isHardModeOn);
+    }
+
+    private void OnSpriteUpdated(Sprite sprite)
+    {
+        foreach (var enemy in Pool)
+            enemy.ChangeSprite(sprite);
     }
 
     protected override void ActivateObject(Enemy poolObject)

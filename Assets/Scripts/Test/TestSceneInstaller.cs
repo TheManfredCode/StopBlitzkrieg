@@ -6,22 +6,19 @@ namespace Test
     public class TestSceneInstaller :  MonoInstaller
     {
         [SerializeField] private string message;
-        
-        [Inject]
-        private void Construct()
-        {
-            
-        }
+        [SerializeField] private TestSceneMonobehThing _monobehThing; 
 
+        private TestSceneThing _scth;
+        
         public override void InstallBindings()
         {
-            Container.BindInstance(new TestSceneThing(message));
-            ShowLog();
+            Container.BindInstance(_monobehThing).AsSingle();
+            Container.Bind<TestSceneThing>().AsSingle().NonLazy();
         }
 
         private void ShowLog()
         {
-            Debug.Log("[Scene] installing" );
+            //Debug.Log("[Scene] installer installed" );
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using DefaultNamespace;
 using UI;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace Aplication
@@ -11,16 +12,19 @@ namespace Aplication
         [SerializeField] private EnemySpawner enemySpawner;
         
         /////
-        [SerializeField] private WindowsController windowsController;
-        [SerializeField] private MainUI mainUi;
-        [SerializeField] private Preloader preloader;
+        // [FormerlySerializedAs("windowsController")] [SerializeField] private WindowsView windowsView;
+        // [SerializeField] private MainUI mainUi;
+        // [SerializeField] private Preloader preloader;
         
         public override void InstallBindings()
         {
-            Container.BindInstance(new DataLoadController(this));
-            Container.BindInstance(new GameController(clickableArea, enemySpawner));
-            Container.BindInstance(new InterfaceController(windowsController, mainUi, preloader));
-            Container.Bind<ApplicationBase>().AsSingle().NonLazy();
+            Container.BindInstance(clickableArea).AsSingle();
+            Container.BindInstance(enemySpawner).AsSingle();
+            
+            Container.Bind<GameController>().AsSingle().NonLazy();
+
+            //Container.BindInstance(new DataLoadController(this));
+            //Container.Bind<ApplicationBase>().AsSingle().NonLazy();
         }
     }
 }

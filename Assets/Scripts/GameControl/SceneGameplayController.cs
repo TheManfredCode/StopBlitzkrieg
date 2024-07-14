@@ -9,7 +9,7 @@ namespace DefaultNamespace
         private ScoreHandler _scoreHandler;
         private bool _isGameStarted;
 
-        public event Action GameOverEvent;
+        //public event Action GameOverEvent;
 
         public SceneGameplayController(ClickableArea clickableArea, EnemySpawner enemySpawner)
         {

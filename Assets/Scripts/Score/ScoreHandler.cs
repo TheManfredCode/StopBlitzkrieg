@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class ScoreHandler
+public class ScoreHandler //must be global
 {
     private int _enemiesDestroyed;
     private int _score;
@@ -12,7 +12,7 @@ public class ScoreHandler
     public ScoreHandler(ScoreCoeficientLoader scoreCoeficientLoader)
     {
         _scoreCoeficientLoader = scoreCoeficientLoader;
-        _scoreCoeficientLoader.CoeficientLoaded += UpdateCoeficientScore;
+        _scoreCoeficientLoader.CoeficientLoaded += UpdateScoreCoeficient;
     }
     
     public event Action HardModeScoreReached;
@@ -59,7 +59,7 @@ public class ScoreHandler
         return result;
     }
 
-    private void UpdateCoeficientScore(int value)
+    private void UpdateScoreCoeficient(int value)
     {
         ScoreCoeficientUpdated?.Invoke(value);
     }

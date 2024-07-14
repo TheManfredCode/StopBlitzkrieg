@@ -5,12 +5,20 @@ namespace Test
 {
     public class TestSceneThing
     {
-        public string Message { get; private set; }
+        private TestGlobalThing _globalTh;
 
-        public TestSceneThing(string message)
+        public TestSceneThing(TestGlobalThing globalThing, TestSceneMonobehThing monobehThing)
         {
-            Message = message;
+            _globalTh = globalThing;
+
+            if (_globalTh != null)
+                Debug.Log("Global Th: " + _globalTh.GetType() + " installed on scene: " + monobehThing.message);
         }
-        
+
+        public void ShowMessage(string message)
+        {
+            Debug.Log("Global Th: " + _globalTh.GetType() + " CALLED on scene: " + message);
+            
+        }
     }
 }

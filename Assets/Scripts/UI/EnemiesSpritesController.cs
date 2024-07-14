@@ -6,18 +6,25 @@ namespace UI
 {
     public class EnemiesSpritesController
     {
-        private List<Enemy> _enemies;
+        //private List<Enemy> _enemies;
         private SpritesAssetBundleLoader _spritesLoader;
         private int _currentSpriteIndex;
 
-        public void Init(List<Enemy> enemiesPool, SpritesAssetBundleLoader spritesLoader)
+        public event Action DataLoaded;
+        public event Action<Sprite> SpriteUpdated;
+
+        public EnemiesSpritesController(SpritesAssetBundleLoader spritesLoader)
         {
-            _enemies = enemiesPool;
             _spritesLoader = spritesLoader;
             _spritesLoader.DataLoaded += OnDataLoaded;
         }
-
-        public event Action DataLoaded;
+        
+        public void Init(List<Enemy> enemiesPool, SpritesAssetBundleLoader spritesLoader)
+        {
+            //_enemies = enemiesPool;
+            //_spritesLoader = spritesLoader;
+            //_spritesLoader.DataLoaded += OnDataLoaded;
+        }
         
         private void OnDataLoaded()
         {
@@ -65,8 +72,7 @@ namespace UI
         
         private void UpdateEnemiesSprites()
         {
-            foreach (var enemy in _enemies)
-                enemy.ChangeSprite(GetCurrentSprite());
+            SpriteUpdated.Invoke(GetCurrentSprite());
         }
 
         private List<Sprite> _sprites => _spritesLoader.Sprites;

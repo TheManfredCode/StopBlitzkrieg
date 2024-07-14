@@ -3,6 +3,7 @@ using DefaultNamespace;
 using UI.UIElements;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace UI
 {
@@ -11,16 +12,21 @@ namespace UI
         [SerializeField] private Button _playButton;
         [SerializeField] private Button _restartButton;
         [SerializeField] private Button _settingsButton;
-        [SerializeField] private ScoreView _scoreView;
-
-        private GameController _gameController;
 
         public event Action SettingsButtonClicked;
 
+        private InterfaceController _interfaceController;
+        
+        [Inject]
+        private void Construct(InterfaceController interfaceController)
+        {
+            _interfaceController = interfaceController;
+        }
+        
         public void Init(GameController gameController)
         {
-            _gameController = gameController;
-            _scoreView.Init(gameController.ScoreHandler);
+            //_gameController = gameController;
+            //_scoreView.Init(gameController.ScoreHandler);
         }
         
         protected override void SubscribeButtons()
@@ -41,13 +47,13 @@ namespace UI
 
         private void OnPlayButtonClick()
         {
-            _gameController.StartGame();
+            _interfaceController.OnStartGameClick();
             Close();
         }
         
         private void OnRestartButtonClick()
         {
-            _gameController.RestartGame();
+            _interfaceController.OnRestartGameClick();
             Close();
         }
         

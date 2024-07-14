@@ -1,5 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
+using Zenject;
 
 namespace UI.UIElements
 {
@@ -9,6 +10,26 @@ namespace UI.UIElements
         [SerializeField] private TMP_Text _topScoreLabel;
         [SerializeField] private TMP_Text _scoreCoeficientLabel;
 
+        private ScoreHandler _scoreHandler;
+        
+        [Inject]
+        private void Construct(ScoreHandler scoreHandler)
+        {
+            _scoreHandler = scoreHandler;
+            
+            AfterConstructed();
+        }
+
+        private void AfterConstructed()
+        {
+            _scoreHandler.ScoreUpdated += UpdateScoreLabel;
+            _scoreHandler.TopScoreUpdated += UpdateTopScoreLabel;
+            _scoreHandler.ScoreCoeficientUpdated += UpdateScoreCoeficientLabel;
+            
+            UpdateScoreCoeficientLabel(_scoreHandler.ScoreCoefficient);
+            UpdateTopScoreLabel(_scoreHandler.GetTopScore());
+        }
+        
         public void Init(ScoreHandler scoreHandler)
         {
             scoreHandler.ScoreUpdated += UpdateScoreLabel;

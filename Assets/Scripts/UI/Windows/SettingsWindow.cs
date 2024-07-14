@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace UI
 {
@@ -11,10 +12,23 @@ namespace UI
 
         private EnemiesSpritesController _spritesController;
 
-        public void Init(EnemiesSpritesController spritesController)
+        [Inject]
+        private void Construct(EnemiesSpritesController spritesController)
         {
             _spritesController = spritesController;
-            _spritesController.DataLoaded += OnDataLoaded;
+            
+            AfterConstructed();
+        }
+
+        private void AfterConstructed()
+        {
+             _spritesController.DataLoaded += OnDataLoaded;
+        }
+        
+        public void Init(EnemiesSpritesController spritesController)
+        {
+            // _spritesController = spritesController;
+            // _spritesController.DataLoaded += OnDataLoaded;
         }
         
         protected override void SubscribeButtons()

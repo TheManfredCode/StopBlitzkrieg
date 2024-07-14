@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using UI;
 using UnityEngine;
 
 namespace Aplication
@@ -7,24 +8,27 @@ namespace Aplication
     public class DataLoadController
     {
         private SpritesAssetBundleLoader _spritesAssetBundleLoader;
-        private ScoreCoeficientLoader _scoreCoeficientLoader;
-        private MonoBehaviour _context;
-
-        public event Action AllDataLoaded;
-
-        public SpritesAssetBundleLoader SpritesLoader => _spritesAssetBundleLoader;
-        public ScoreCoeficientLoader ScoreCoeficientLoader => _scoreCoeficientLoader;
-
-        public DataLoadController(MonoBehaviour context)
+        private ScoreCoeficientLoader _scoreCoefficientLoader;
+        private AppBaseInstaller _context;
+        private InterfaceController _interfaceController;
+        
+        public DataLoadController(AppBaseInstaller context, ScoreCoeficientLoader scoreCoefficientLoader, 
+            SpritesAssetBundleLoader spritesAssetBundleLoader, InterfaceController  interfaceController)
         {
             _context = context;
-            Debug.Log($"[DataLoadController] Created. context - {context.GetType()}");
+            //Debug.Log($"[DataLoadController] Created. context - {context.GetType()}");
+            
+            _spritesAssetBundleLoader = spritesAssetBundleLoader;
+            _scoreCoefficientLoader = scoreCoefficientLoader;
+            _interfaceController = interfaceController;
+            
+            StartLoadData();
         }
 
         public void Init()
         {
-            _spritesAssetBundleLoader = new SpritesAssetBundleLoader();
-            _scoreCoeficientLoader = new ScoreCoeficientLoader();
+        //     _spritesAssetBundleLoader = new SpritesAssetBundleLoader();
+        //     _scoreCoeficientLoader = new ScoreCoeficientLoader();
         }
 
         public void StartLoadData()
@@ -37,9 +41,9 @@ namespace Aplication
             Debug.Log("[DataLoadController] Start loading asset bundles.");
             yield return _spritesAssetBundleLoader.LoadAssetBundle();
             Debug.Log("[DataLoadController] Start loading score coeficient.");
-            yield return _scoreCoeficientLoader.LoadCoefitient();
+            yield return _scoreCoefficientLoader.LoadCoefitient();
             Debug.Log("[DataLoadController]All data loaded.");
-            AllDataLoaded?.Invoke();
+            _interfaceController.HidePreloader();
         }
     }
 }

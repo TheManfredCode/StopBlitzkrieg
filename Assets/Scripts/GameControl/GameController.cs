@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Aplication;
+using UI;
 using UnityEngine;
 
 namespace DefaultNamespace
@@ -10,35 +12,43 @@ namespace DefaultNamespace
         private EnemySpawner _enemySpawner;
         private ScoreHandler _scoreHandler;
         private bool _isGameStarted;
-
-        public event Action GameOverEvent;
-
-        public GameController(ClickableArea clickableArea, EnemySpawner enemySpawner)
+        private InterfaceController _interfaceController;
+        
+        public GameController(ClickableArea clickableArea, 
+            EnemySpawner enemySpawner, 
+            ScoreHandler scoreHandler, 
+            InterfaceController interfaceController)
         {
             _clickableArea = clickableArea;
             _enemySpawner = enemySpawner;
+            _scoreHandler = scoreHandler;
+            _interfaceController = interfaceController;
+            _enemySpawner.Init();
+
+            AddListeners();
         }
 
-        public void Init(ScoreCoeficientLoader scoreCoeficientLoader)
-        {
-            _scoreHandler = new ScoreHandler(scoreCoeficientLoader);
-            InitSubscriptions();
-        }
+        // public void Init(ScoreCoeficientLoader scoreCoeficientLoader)
+        // {
+        //     //_scoreHandler = new ScoreHandler(scoreCoeficientLoader); // must be global
+        //     //InitSubscriptions();
+        // }
         
-        private void InitSubscriptions()
+        private void AddListeners()
         {
-            _enemySpawner.Init();
             _scoreHandler.HardModeScoreReached += OnHardModeScoreReached;
             _clickableArea.ClickableAreaExit += OnClickableAreaExit;
             _enemySpawner.EnemyKilled += _scoreHandler.IncreaseScore;
+            _interfaceController.OnWindowShownEvent += PauseGame;
+            _interfaceController.OnStartGameClickEvent += StartGame;
+            _interfaceController.OnRestartGameClickEvent += RestartGame;
         }
 
         public List<Enemy> EnemiesPool => _enemySpawner.EnemiesPool;
-
-        public ScoreHandler ScoreHandler => _scoreHandler;
-
+        
         private void OnClickableAreaExit()
         {
+            //TODO return game over
             //GameOver();
         }
 
@@ -76,7 +86,7 @@ namespace DefaultNamespace
         private void GameOver()
         {
             Time.timeScale = 0;
-            GameOverEvent?.Invoke();
+            _interfaceController.ShowGameOverWindow();
         }
 
         public void Dispose()
