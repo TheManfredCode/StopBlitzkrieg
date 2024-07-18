@@ -25,6 +25,15 @@ public class EnemySpawner : ObjectPool<Enemy>
         _spritesController.SpriteUpdated += OnSpriteUpdated;
     }
 
+    public override void Init()
+    {
+        base.Init();
+        var currentSprite = _spritesController.GetCurrentSprite();
+        
+        if(currentSprite != null)
+            OnSpriteUpdated(currentSprite);
+    }
+
     private void OnEnemyKilled()
     {
         EnemyKilled?.Invoke();
@@ -58,5 +67,11 @@ public class EnemySpawner : ObjectPool<Enemy>
     {
         base.AfterObjectInstantiated(poolObject);
         poolObject.Killed += OnEnemyKilled;
+    }
+
+    protected override void Clear()
+    {
+        base.Clear();
+        _spritesController.SpriteUpdated -= OnSpriteUpdated;
     }
 }

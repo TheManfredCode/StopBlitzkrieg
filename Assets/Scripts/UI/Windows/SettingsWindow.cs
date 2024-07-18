@@ -25,12 +25,6 @@ namespace UI
              _spritesController.DataLoaded += OnDataLoaded;
         }
         
-        public void Init(EnemiesSpritesController spritesController)
-        {
-            // _spritesController = spritesController;
-            // _spritesController.DataLoaded += OnDataLoaded;
-        }
-        
         protected override void SubscribeButtons()
         {
             base.SubscribeButtons();

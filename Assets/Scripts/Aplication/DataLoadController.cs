@@ -25,12 +25,6 @@ namespace Aplication
             StartLoadData();
         }
 
-        public void Init()
-        {
-        //     _spritesAssetBundleLoader = new SpritesAssetBundleLoader();
-        //     _scoreCoeficientLoader = new ScoreCoeficientLoader();
-        }
-
         public void StartLoadData()
         {
             _context.StartCoroutine(LoadData());

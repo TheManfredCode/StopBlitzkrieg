@@ -6,7 +6,6 @@ namespace UI
 {
     public class EnemiesSpritesController
     {
-        //private List<Enemy> _enemies;
         private SpritesAssetBundleLoader _spritesLoader;
         private int _currentSpriteIndex;
 
@@ -19,13 +18,6 @@ namespace UI
             _spritesLoader.DataLoaded += OnDataLoaded;
         }
         
-        public void Init(List<Enemy> enemiesPool, SpritesAssetBundleLoader spritesLoader)
-        {
-            //_enemies = enemiesPool;
-            //_spritesLoader = spritesLoader;
-            //_spritesLoader.DataLoaded += OnDataLoaded;
-        }
-        
         private void OnDataLoaded()
         {
             _currentSpriteIndex = 0;
@@ -36,14 +28,10 @@ namespace UI
         public Sprite GetCurrentSprite()
         {
             if (_sprites.Count > _currentSpriteIndex)
-            {
                 return _sprites[_currentSpriteIndex];
-            }
-            else
-            {
-                Debug.Log("[EnemiesSpritesSettings] Current sprite index out of range");
-                return null;
-            }
+            
+            Debug.Log("[EnemiesSpritesSettings] Current sprite index out of range");
+            return null;
         }
         
         public void ChangeToNextSprite()
@@ -70,10 +58,8 @@ namespace UI
             UpdateEnemiesSprites();
         }
         
-        private void UpdateEnemiesSprites()
-        {
+        private void UpdateEnemiesSprites() =>
             SpriteUpdated.Invoke(GetCurrentSprite());
-        }
 
         private List<Sprite> _sprites => _spritesLoader.Sprites;
     }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -32,8 +33,7 @@ public class ObjectPool<T> : MonoBehaviour where T : MonoBehaviour
             _pool.Add(poolObject);
         }
 
-        //TODO remove
-        _elapsedTime = _spawnRate;
+        ActivatePoolObject();
     }
     
     private void Update()
@@ -43,9 +43,7 @@ public class ObjectPool<T> : MonoBehaviour where T : MonoBehaviour
         _elapsedTime += Time.deltaTime;
 
         if (_elapsedTime >= _spawnRate)
-        {
             ActivatePoolObject();
-        }
     }
 
     protected virtual void AfterObjectInstantiated(T poolObject)
@@ -91,10 +89,28 @@ public class ObjectPool<T> : MonoBehaviour where T : MonoBehaviour
     {
         foreach (var poolObject in _pool)
             RestartPoolObject(poolObject);
+
+        ActivatePoolObject();
+        _elapsedTime = 0;
+        IsPaused = false;
     }
 
     protected virtual void RestartPoolObject(T poolObject)
     {
         poolObject.gameObject.SetActive(false);
+    }
+
+    protected virtual void Clear()
+    {
+        foreach (var poolObject in _pool)
+            Destroy(poolObject.gameObject);
+        
+        _pool.Clear();
+        _elapsedTime = 0;
+    }
+
+    private void OnDisable()
+    {
+        Clear();
     }
 }

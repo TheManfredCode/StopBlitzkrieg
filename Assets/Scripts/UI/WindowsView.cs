@@ -5,11 +5,12 @@ using Zenject;
 
 namespace UI
 {
-    public class WindowsView : MonoBehaviour // must be on ui scene
+    public class WindowsView : MonoBehaviour 
     {
         [SerializeField] private MainMenuWindow _mainMenuWindow;
         [SerializeField] private SettingsWindow _settingsWindow;
         [SerializeField] private GameOverWindoiw _gameOverWindoiw;
+        [SerializeField] private FinishedLevelWindow _finishedLevelWindow;
 
         private List<BaseWindow> _openedWindows = new List<BaseWindow>();
         private InterfaceController _interfaceController;
@@ -25,8 +26,8 @@ namespace UI
         private void AfterConstructed()
         {
             _interfaceController.ShowGameOverWindowEvent += ShowGameOverWindow;
-            _interfaceController.HidePreloaderEvent += OnHidePreloader;
             _interfaceController.ShowMainMenuWindowEvent += ShowMainMenuWindow;
+            _interfaceController.ShowFinishedLevelWindowEvent += ShowFinishedLevelWindow;
         }
         
         private void OnEnable()
@@ -39,13 +40,6 @@ namespace UI
         {
             _settingsWindow.Closed -= ShowMainMenuWindow;
             _mainMenuWindow.SettingsButtonClicked -= ShowSettingsWindow;
-        }
-
-        public void Init(EnemiesSpritesController spritesController)
-        {
-            //_settingsWindow.Init(spritesController);
-            //_mainMenuWindow.Init(gameController);
-            //_gameOverWindoiw.Init(gameController);
         }
 
         public void ShowMainMenuWindow()
@@ -63,16 +57,16 @@ namespace UI
             ShowWindow(_gameOverWindoiw);
         }
 
+        private void ShowFinishedLevelWindow()
+        {
+            ShowWindow(_finishedLevelWindow);
+        }
+
         private void ShowWindow(BaseWindow window)
         {
             CloseOtherWindows();
             window.Show();
             _openedWindows.Add(window);            
-        }
-
-        private void OnHidePreloader()
-        {
-            ShowMainMenuWindow();
         }
 
         private void CloseOtherWindows()

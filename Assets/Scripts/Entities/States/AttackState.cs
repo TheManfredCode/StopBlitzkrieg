@@ -18,7 +18,9 @@
         {
             if (EnemyEntity.HasShield)
             {
-                StateSwitcher.ChangeState<ShieldAttackState>();
+                //TODO return original behaviour
+                // StateSwitcher.ChangeState<ShieldAttackState>();
+                StateSwitcher.ChangeState<DiedState>();
                 return;
             }
             
