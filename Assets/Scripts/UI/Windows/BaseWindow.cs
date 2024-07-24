@@ -13,6 +13,11 @@ namespace UI
         private void OnEnable()
         {
             SubscribeButtons();
+            OnEnabled();
+        }
+
+        protected virtual void OnEnabled()
+        {
         }
 
         private void OnDisable()

@@ -328,7 +328,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clickableArea: {fileID: 1540403693}
   enemySpawner: {fileID: 1313782405}
-  killsToWinCount: 5
+  killsToWinCount: 0
 --- !u!114 &1682315665
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,13 +8,13 @@ namespace Test
     {
         private TestGlobalInstaller _context;
         
-        public TestGlobalThing(TestGlobalInstaller context)
+        public TestGlobalThing()
         {
             Debug.Log("[Global] thing constructed");
-            _context = context;
+            //_context = context;
             // _context.enabled = true;
             // _context.gameObject.SetActive(true);
-            _context.StartCoroutine(WaitOneFrame());
+            // _context.StartCoroutine(WaitOneFrame());
         }
         
         private static IEnumerator WaitOneFrame()

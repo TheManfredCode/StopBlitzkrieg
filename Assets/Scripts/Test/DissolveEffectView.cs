@@ -14,25 +14,33 @@ namespace Test
         private void OnEnable()
         {
             _isDissolving = true;
+            StartCoroutine(CreateCoroutine(() =>
+            {
+                Debug.Log("DONE!!");
+            }, 2f));
         }
 
         private void Update()
         {
-            if(_isDissolving)
-            {
-                _dissolveValue = Mathf.Clamp01(_dissolveValue + Time.deltaTime);
-                _material.SetFloat("_DissolveValue", _dissolveValue);
-            }
+            // if(_isDissolving)
+            // {
+            //     _dissolveValue = Mathf.Clamp01(_dissolveValue + Time.deltaTime);
+            //     _material.SetFloat("_DissolveValue", _dissolveValue);
+            // }
         }
         
-        // private IEnumerator CreateCoroutine(Action callback, float milliseconds)
-        // {
-        //     var timeSeconds = milliseconds / 1000;
-        //     
-        //     
-        //     
-        //     yield return new WaitForSeconds(timeSeconds);
-        //     callback?.Invoke();
-        // }
+        private IEnumerator CreateCoroutine(Action callback, float seconds)
+        {
+            float elapsedTime = 0;
+
+            while (elapsedTime < seconds)
+            {
+                elapsedTime += Time.deltaTime;
+                Debug.Log(elapsedTime);
+                yield return null;
+            }
+            
+            callback?.Invoke();
+        }
     }
 }

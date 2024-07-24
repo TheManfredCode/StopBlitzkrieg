@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Ads;
 using UI;
 using UnityEngine;
 using Zenject;
@@ -20,6 +21,7 @@ namespace Aplication
             Container.Bind<SpritesAssetBundleLoader>().AsSingle();
             Container.Bind<EnemiesSpritesController>().AsSingle();
             Container.Bind<DataLoadController>().AsSingle();
+            Container.Bind<AdsHandler>().AsSingle();
         }
     }
 }

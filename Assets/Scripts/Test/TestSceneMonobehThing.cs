@@ -1,4 +1,5 @@
 using System;
+using Ads;
 using UnityEngine;
 using Zenject;
 
@@ -17,6 +18,17 @@ namespace Test
 
             if (_globalTh != null)
                 Debug.Log("Global Th: " + _globalTh.GetType() + " installed on scene: " + message);
+        }
+
+        private AdsHandler _adsHandler;
+        private void Awake()
+        {
+            _adsHandler = new AdsHandler();
+        }
+
+        public void ShowAd()
+        {
+            _adsHandler.ShowRewardedAd((bool bl) => { Debug.Log("ad - " + bl);});
         }
     }
 }

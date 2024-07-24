@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class ScoreHandler //must be global
+public class ScoreHandler
 {
     private int _enemiesDestroyed;
     private int _score;
@@ -38,6 +38,13 @@ public class ScoreHandler //must be global
             
         if(_enemiesDestroyed >= HARD_MODE_SCORE)
             HardModeScoreReached?.Invoke();
+        
+        ScoreUpdated?.Invoke(_score);
+    }
+
+    public void TripleScore()
+    {
+        _score *= 3;
         
         ScoreUpdated?.Invoke(_score);
     }

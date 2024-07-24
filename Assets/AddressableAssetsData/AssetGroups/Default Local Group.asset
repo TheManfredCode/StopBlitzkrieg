@@ -37,6 +37,10 @@ MonoBehaviour:
     m_Address: Assets/Scenes/TestNew/Level1.unity
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 860ed55cac8c06b4798005aa5f5b2bbf
+    m_Address: Assets/Scenes/TestNew/Level4.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 222a2845408344e168be64418f4ee824, type: 2}
   m_SchemaSet:

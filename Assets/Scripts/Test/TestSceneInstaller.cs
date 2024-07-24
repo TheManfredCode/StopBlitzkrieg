@@ -12,8 +12,8 @@ namespace Test
         
         public override void InstallBindings()
         {
-            Container.BindInstance(_monobehThing).AsSingle();
-            Container.Bind<TestSceneThing>().AsSingle().NonLazy();
+            // Container.BindInstance(_monobehThing).AsSingle();
+            // Container.Bind<TestSceneThing>().AsSingle().NonLazy();
         }
 
         private void ShowLog()
