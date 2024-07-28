@@ -27,9 +27,9 @@ namespace Ads
         private bool _isInitialized;
         private RewardedAd _rewardedAd;
 
-        public AdsHandler()
+        public AdsHandler(AnalyticsHandler analyticsHandler)
         {
-            _rewardedAd = new RewardedAd();
+            _rewardedAd = new RewardedAd(analyticsHandler);
             Advertisement.Initialize(GameId, true, this);
         }
 

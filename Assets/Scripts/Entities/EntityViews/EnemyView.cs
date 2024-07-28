@@ -18,6 +18,9 @@ public class EnemyView : MonoBehaviour
     public void ChangeShieldIndicatorVisible(bool value) =>
         _shieldIndicator.SetActive(value);
 
+    public void ResetDissolveEffect() => 
+        _dissolveEffect.ResetEffect();
+    
     public void StartDissolve(Action callback, float seconds) =>
         _dissolveEffect.StartDissolve(callback, seconds);
 }

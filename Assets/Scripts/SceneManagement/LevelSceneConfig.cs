@@ -6,10 +6,6 @@ namespace SceneManagement
     [CreateAssetMenu(menuName = "LevelConfig")]
     public class LevelSceneConfig : ScriptableObject
     {
-        // [InlineButton("SetSpawnerCapacity60", "60")]
-        // [InlineButton("SetSpawnerCapacity30", "30")]
-        // [InlineButton("SetSpawnerCapacity5", "5")]
-        
         [SerializeField, PreviewField(75), HorizontalGroup("Split", 75)]
         private Sprite _background;
         [SerializeField, VerticalGroup("Split/Right"), LabelWidth(150)] 

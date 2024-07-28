@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Ads;
 using Aplication;
 using SceneManagement;
 using UI;
@@ -12,18 +13,20 @@ namespace DefaultNamespace
         private ClickableArea _clickableArea;
         private EnemySpawner _enemySpawner;
         private ScoreHandler _scoreHandler;
-        private bool _isGameStarted;
         private InterfaceController _interfaceController;
         private LevelScenesController _scenesController;
-        private int _killsToWinCount;
+        private AnalyticsHandler _analyticsHandler;
+        private readonly int _killsToWinCount;
         private int _enemiesKilled;
+        private bool _isGameStarted;
         
         public GameController(ClickableArea clickableArea, 
             EnemySpawner enemySpawner, 
             ScoreHandler scoreHandler, 
             InterfaceController interfaceController,
             LevelScenesController scenesController,
-            LevelSceneConfig sceneConfig)
+            LevelSceneConfig sceneConfig,
+            AnalyticsHandler analyticsHandler)
         {
             _clickableArea = clickableArea;
             _enemySpawner = enemySpawner;
@@ -32,6 +35,7 @@ namespace DefaultNamespace
             _enemySpawner.Init();
             _scenesController = scenesController;
             _killsToWinCount = sceneConfig.KillsToWinCount;
+            _analyticsHandler = analyticsHandler;
 
             AddListeners();
         }
@@ -65,6 +69,8 @@ namespace DefaultNamespace
         
         private void OnFinishConditionsCompleted()
         {
+            if(_killsToWinCount > 0)
+                _analyticsHandler.LogLevelSuccess(_scenesController.CurrentLevel, _scoreHandler.GetScore());
             _scenesController.UnlockNextLevel();
             _scenesController.LoadLastScene();
             _interfaceController.ShowFinishedLevelWindow();
@@ -109,6 +115,9 @@ namespace DefaultNamespace
         
         private void GameOver()
         {
+            if(_killsToWinCount > 0)
+                _analyticsHandler.LogLevelFail(_scenesController.CurrentLevel, _scoreHandler.GetScore());
+            
             Time.timeScale = 0;
             _interfaceController.ShowGameOverWindow();
         }

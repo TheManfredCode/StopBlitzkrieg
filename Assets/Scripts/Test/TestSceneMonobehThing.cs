@@ -10,6 +10,8 @@ namespace Test
         [SerializeField] public string message;
         
         private TestGlobalThing _globalTh;
+        private AnalyticsHandler _analyticsHandler;
+        private AdsHandler _adsHandler;
 
         //[Inject]
         private void Construct(TestGlobalThing globalThing)
@@ -20,15 +22,21 @@ namespace Test
                 Debug.Log("Global Th: " + _globalTh.GetType() + " installed on scene: " + message);
         }
 
-        private AdsHandler _adsHandler;
         private void Awake()
         {
-            _adsHandler = new AdsHandler();
+            //_adsHandler = new AdsHandler();
+            _analyticsHandler = new AnalyticsHandler();
         }
 
         public void ShowAd()
         {
             _adsHandler.ShowRewardedAd((bool bl) => { Debug.Log("ad - " + bl);});
+        }
+
+        public void LogTestAnalyticsEvent()
+        {
+            //_analyticsHandler.LogEvent();
+            Debug.Log("TEST ANALYTIC SENT");
         }
     }
 }

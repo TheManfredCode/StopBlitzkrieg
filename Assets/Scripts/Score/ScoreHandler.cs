@@ -3,14 +3,16 @@ using UnityEngine;
 
 public class ScoreHandler
 {
+    private ScoreCoeficientLoader _scoreCoeficientLoader;
+    private AnalyticsHandler _analyticsHandler;
     private int _enemiesDestroyed;
     private int _score;
-    private ScoreCoeficientLoader _scoreCoeficientLoader;
     private const int HARD_MODE_SCORE = 5;
     private const string TOP_SCORE_KEY = "topScore";
 
-    public ScoreHandler(ScoreCoeficientLoader scoreCoeficientLoader)
+    public ScoreHandler(ScoreCoeficientLoader scoreCoeficientLoader, AnalyticsHandler analyticsHandler)
     {
+        _analyticsHandler = analyticsHandler;
         _scoreCoeficientLoader = scoreCoeficientLoader;
         _scoreCoeficientLoader.CoeficientLoaded += UpdateScoreCoeficient;
     }
@@ -75,6 +77,7 @@ public class ScoreHandler
 
     private void SaveNewRecord(int value)
     {
+        _analyticsHandler.LogNewRecord(value);
         PlayerPrefs.SetInt(TOP_SCORE_KEY, value);
         PlayerPrefs.Save();
         

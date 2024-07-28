@@ -25,6 +25,8 @@ public class LevelScenesController
 
     public bool IsSceneLoaded => _sceneLoader.IsLoaded;
 
+    public int CurrentLevel => _currentSceneKey + 1;
+
     public void UnlockNextLevel()
     {
         var lastUnlockedLevelKey = _unlockedScenes.Last().Key;

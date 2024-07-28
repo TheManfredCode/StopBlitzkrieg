@@ -22,6 +22,7 @@ namespace Aplication
             Container.Bind<EnemiesSpritesController>().AsSingle();
             Container.Bind<DataLoadController>().AsSingle();
             Container.Bind<AdsHandler>().AsSingle();
+            Container.Bind<AnalyticsHandler>().AsSingle();
         }
     }
 }

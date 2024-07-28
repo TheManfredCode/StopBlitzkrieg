@@ -8,7 +8,7 @@
         
         public override void StartState()
         {
-            EnemyEntity.Die();
+            EnemyEntity.StartDieAnimation();
         }
 
         public override void FinishState() { }

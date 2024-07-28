@@ -6,11 +6,17 @@ namespace Ads
 {
     public class RewardedAd : IUnityAdsLoadListener, IUnityAdsShowListener
     {
+        private AnalyticsHandler _analyticsHandler;
         private event Action AdLoadedEvent;
         private event Action AdWatchedEvent;
         private event Action AdLoadFailedEvent;
         private event Action AdShowFailedEvent;
-        
+
+        public RewardedAd(AnalyticsHandler analyticsHandler)
+        {
+            _analyticsHandler = analyticsHandler;
+        }
+
         public void ShowAd(Action<bool> callback)
         {
             AdLoadedEvent += OnAdLoaded;
@@ -30,6 +36,7 @@ namespace Ads
                 AdLoadFailedEvent -= OnAdFailed;
                 AdShowFailedEvent -= OnAdFailed;
                 callback(false);
+                _analyticsHandler.LogRewardedAdWatchedFail();
             }
             
             void OnAdWatched()
@@ -38,6 +45,7 @@ namespace Ads
                 AdShowFailedEvent -= OnAdFailed;
                 AdWatchedEvent -= OnAdWatched;
                 callback(true);
+                _analyticsHandler.LogRewardedAdWatchedSuccess();
             }
         }
         
@@ -67,6 +75,7 @@ namespace Ads
         public void OnUnityAdsShowClick(string placementId)
         {
             Debug.Log($"[Rewarded ad] Show {placementId} ad clicked");
+            _analyticsHandler.LogRewardedAdClicked();
         }
 
         public void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState)

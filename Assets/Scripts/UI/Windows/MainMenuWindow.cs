@@ -11,6 +11,7 @@ namespace UI
         [SerializeField] private Button _playButton;
         [SerializeField] private Button _restartButton;
         [SerializeField] private Button _settingsButton;
+        [SerializeField] private Button _clearPrefsButton;
 
         public event Action SettingsButtonClicked;
 
@@ -21,19 +22,14 @@ namespace UI
         {
             _interfaceController = interfaceController;
         }
-        
-        public void Init(GameController gameController)
-        {
-            //_gameController = gameController;
-            //_scoreView.Init(gameController.ScoreHandler);
-        }
-        
+
         protected override void SubscribeButtons()
         {
             base.SubscribeButtons();
             _playButton.onClick.AddListener(OnPlayButtonClick);
             _restartButton.onClick.AddListener(OnRestartButtonClick);
             _settingsButton.onClick.AddListener(OnSettingsButtonClick);
+            _clearPrefsButton.onClick.AddListener(OnClearPlayerPrefs);
         }
 
         protected override void UnsubscribeButtons()
@@ -42,6 +38,7 @@ namespace UI
             _playButton.onClick.RemoveListener(OnPlayButtonClick);
             _restartButton.onClick.RemoveListener(OnRestartButtonClick);
             _settingsButton.onClick.RemoveListener(OnSettingsButtonClick);
+            _clearPrefsButton.onClick.RemoveListener(OnClearPlayerPrefs);
         }
 
         private void OnPlayButtonClick()
@@ -56,9 +53,10 @@ namespace UI
             Close();
         }
         
-        private void OnSettingsButtonClick()
-        {
+        private void OnSettingsButtonClick() =>
             SettingsButtonClicked?.Invoke();
-        }
+        
+        public void OnClearPlayerPrefs() => 
+            PlayerPrefs.DeleteAll();
     }
 }

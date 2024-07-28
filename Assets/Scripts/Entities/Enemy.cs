@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour, IClickable
 {
     [SerializeField] private EnemyMover _mover;
     [SerializeField] private EnemyView _view;
+    [SerializeField] private float _dieAnimationTime;
 
     private EnemyBehaviour _enemyBehaviour;
     private bool _isClickable;
@@ -53,6 +54,12 @@ public class Enemy : MonoBehaviour, IClickable
         _view.ChangeShieldVisible(false);
     }
 
+    public void StartDieAnimation()
+    {
+        _mover.StopMoving();
+        _view.StartDissolve(()=>Die(), _dieAnimationTime);
+    }
+
     public void Die(bool isInitializing = false)
     {
         if(!isInitializing) 
@@ -64,13 +71,9 @@ public class Enemy : MonoBehaviour, IClickable
 
     public void Activate()
     {
+        _view.ResetDissolveEffect();
+        _mover.Restart();
         _enemyBehaviour.ChangeState<AttackState>();
-    }
-
-    public void Teleport()
-    {
-        var position = transform.position;
-        transform.position = new Vector3(position.x + 100, position.y);
     }
 
     public void OnClick()
