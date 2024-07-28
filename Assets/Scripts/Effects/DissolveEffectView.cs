@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Test
+namespace Effects
 {
     public class DissolveEffectView : MonoBehaviour
     {
@@ -20,14 +20,8 @@ namespace Test
             }, 2f));
         }
 
-        private void Update()
-        {
-            // if(_isDissolving)
-            // {
-            //     _dissolveValue = Mathf.Clamp01(_dissolveValue + Time.deltaTime);
-            //     _material.SetFloat("_DissolveValue", _dissolveValue);
-            // }
-        }
+        public void StartDissolve(Action callback, float seconds) =>
+            StartCoroutine(CreateCoroutine(callback, seconds));
         
         private IEnumerator CreateCoroutine(Action callback, float seconds)
         {

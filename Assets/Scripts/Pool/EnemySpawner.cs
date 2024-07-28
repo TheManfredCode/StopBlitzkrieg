@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using SceneManagement;
 using UI;
 using UnityEngine;
 using Zenject;
@@ -13,9 +14,12 @@ public class EnemySpawner : ObjectPool<Enemy>
     public List<Enemy> EnemiesPool => Pool;
 
     [Inject]
-    private void Construct(EnemiesSpritesController spritesController)
+    private void Construct(EnemiesSpritesController spritesController, LevelSceneConfig sceneConfig)
     {
         _spritesController = spritesController;
+        _template = sceneConfig.EnemyObjectTemplate;
+        _capacity = sceneConfig.SpawnerCapacity;
+        _spawnRate = sceneConfig.SpawnRate;
         
         AfterConstructed();
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Aplication;
+using SceneManagement;
 using UI;
 using UnityEngine;
 
@@ -22,7 +23,7 @@ namespace DefaultNamespace
             ScoreHandler scoreHandler, 
             InterfaceController interfaceController,
             LevelScenesController scenesController,
-            int killsToWinCount)
+            LevelSceneConfig sceneConfig)
         {
             _clickableArea = clickableArea;
             _enemySpawner = enemySpawner;
@@ -30,7 +31,7 @@ namespace DefaultNamespace
             _interfaceController = interfaceController;
             _enemySpawner.Init();
             _scenesController = scenesController;
-            _killsToWinCount = killsToWinCount;
+            _killsToWinCount = sceneConfig.KillsToWinCount;
 
             AddListeners();
         }

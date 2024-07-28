@@ -152,11 +152,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efa99e588d344552a58c8dbe2350110e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _template: {fileID: 1521032486525890396, guid: 1c750da471945c040a07f7830195c726, type: 3}
   _container: {fileID: 1313782404}
-  _capacity: 30
   _spawnPoint: {fileID: 1313782406}
-  _spawnRate: 2
 --- !u!4 &1313782406
 Transform:
   m_ObjectHideFlags: 0
@@ -326,9 +323,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 318c9b329d774469b1db26a904673c74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clickableArea: {fileID: 1540403693}
-  enemySpawner: {fileID: 1313782405}
-  killsToWinCount: 2
+  _sceneConfig: {fileID: 11400000, guid: 074a145e0e5f73b4aaeb7e768d2db960, type: 2}
+  _clickableArea: {fileID: 1540403693}
+  _enemySpawner: {fileID: 1313782405}
 --- !u!114 &1682315665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -386,6 +383,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2056107428}
   - component: {fileID: 2056107427}
+  - component: {fileID: 2056107429}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -452,11 +450,24 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2056107426}
-  m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3.8644009, y: 3.8644009, z: 3.8644}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2056107429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2056107426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baa24af1023149ca8f4c7041e905aa3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spriteRenderer: {fileID: 2056107427}

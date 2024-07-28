@@ -1,20 +1,22 @@
 ﻿using DefaultNamespace;
+using SceneManagement;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace Aplication
 {
     public class GameplaySceneInstaller : MonoInstaller
     {
-        [SerializeField] private ClickableArea clickableArea;
-        [SerializeField] private EnemySpawner enemySpawner;
-        [SerializeField] private int killsToWinCount; //need to move to GameController??
+        [SerializeField] private LevelSceneConfig _sceneConfig;
+        [SerializeField] private ClickableArea _clickableArea;
+        [SerializeField] private EnemySpawner _enemySpawner;
         
         public override void InstallBindings()
         {
-            Container.BindInstance(clickableArea).AsSingle();
-            Container.BindInstance(enemySpawner).AsSingle();
-            Container.BindInstance(killsToWinCount).AsSingle();
+            Container.BindInstance(_sceneConfig).AsSingle();
+            Container.BindInstance(_clickableArea).AsSingle();
+            Container.BindInstance(_enemySpawner).AsSingle();
             
             Container.Bind<GameController>().AsSingle().NonLazy();
         }

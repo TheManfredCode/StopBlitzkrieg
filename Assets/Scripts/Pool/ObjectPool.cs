@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using SceneManagement;
+using UI;
 using UnityEngine;
+using Zenject;
 using Random = UnityEngine.Random;
 
 public class ObjectPool<T> : MonoBehaviour where T : MonoBehaviour
 {
-    [SerializeField] private T _template;
     [SerializeField] private GameObject _container;
-    [SerializeField] private int _capacity;
     [SerializeField] private Transform _spawnPoint; 
-    [SerializeField] private float _spawnRate;
+    
+    protected T _template;
+    protected uint _capacity;
+    protected float _spawnRate;
 
     private const float SPAWN_DISPERSION_OFFSET = 1f;
     private float _spawnDispersion;
