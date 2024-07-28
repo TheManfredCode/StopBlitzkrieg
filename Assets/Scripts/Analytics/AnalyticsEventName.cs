@@ -6,4 +6,6 @@
     public static string RewardedAdWatchedSuccess = "rewarded_ad_watch_success";
     public static string RewardedAdWatchedFail = "rewarded_ad_watch_fail";
     public static string RewardedAdClicked = "rewarded_ad_clicked";
+    public static string InterstitialAdClicked = "interstitial_ad_clicked";
+    public static string BannerAdClicked = "banner_ad_clicked";
 }

@@ -2,7 +2,7 @@
 
 namespace UI
 {
-    public class InterfaceController
+    public class InterfaceHandler
     {
         public event Action ShowGameOverWindowEvent;
         public event Action ShowMainMenuWindowEvent;

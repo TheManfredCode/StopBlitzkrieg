@@ -14,14 +14,14 @@ namespace UI
         [SerializeField] private Button _adButton;
         [SerializeField] private TMP_Text _adRewardGainedLabel;
 
-        private InterfaceController _interfaceController;
+        private InterfaceHandler _interfaceHandler;
         private AdsHandler _adsHandler;
         private ScoreHandler _scoreHandler;
         
         [Inject]
-        private void Construct(InterfaceController interfaceController, AdsHandler adsHandler, ScoreHandler scoreHandler)
+        private void Construct(InterfaceHandler interfaceHandler, AdsHandler adsHandler, ScoreHandler scoreHandler)
         {
-            _interfaceController = interfaceController;
+            _interfaceHandler = interfaceHandler;
             _adsHandler = adsHandler;
             _scoreHandler = scoreHandler;
         }
@@ -48,7 +48,7 @@ namespace UI
 
         private void OnPlayNextLevelButtonClick()
         {
-            _interfaceController.OnStartGameClick();
+            _interfaceHandler.OnStartGameClick();
             Close();
         }
 

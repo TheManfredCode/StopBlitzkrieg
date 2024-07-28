@@ -5,19 +5,19 @@ namespace UI
 {
     public class Preloader :MonoBehaviour
     {
-        private InterfaceController _interfaceController;
+        private InterfaceHandler _interfaceHandler;
         
         [Inject]
-        private void Construct(InterfaceController interfaceController)
+        private void Construct(InterfaceHandler interfaceHandler)
         {
             gameObject.SetActive(true);
-            _interfaceController = interfaceController;
+            _interfaceHandler = interfaceHandler;
             
             AfterConstruct();
         }
 
         private void AfterConstruct() =>
-            _interfaceController.HidePreloaderEvent += Hide;
+            _interfaceHandler.HidePreloaderEvent += Hide;
 
         private void Hide() => 
             gameObject.SetActive(false);

@@ -15,7 +15,7 @@ namespace Aplication
             Container.BindInstance(this).AsSingle();
             Container.BindInstance(new LevelScenesController(_sceneKeys)).AsSingle();
             
-            Container.Bind<InterfaceController>().AsSingle();
+            Container.Bind<InterfaceHandler>().AsSingle();
             Container.Bind<ScoreHandler>().AsSingle();
             Container.Bind<ScoreCoeficientLoader>().AsSingle();
             Container.Bind<SpritesAssetBundleLoader>().AsSingle();

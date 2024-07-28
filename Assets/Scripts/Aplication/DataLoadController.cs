@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Ads;
 using UI;
 using UnityEngine;
 
@@ -9,15 +10,17 @@ namespace Aplication
         private SpritesAssetBundleLoader _spritesAssetBundleLoader;
         private ScoreCoeficientLoader _scoreCoefficientLoader;
         private AppBaseInstaller _context;
-        private InterfaceController _interfaceController;
+        private InterfaceHandler _interfaceHandler;
+        private AdsHandler _adsHandler;
         
         public DataLoadController(AppBaseInstaller context, ScoreCoeficientLoader scoreCoefficientLoader, 
-            SpritesAssetBundleLoader spritesAssetBundleLoader, InterfaceController  interfaceController)
+            SpritesAssetBundleLoader spritesAssetBundleLoader, InterfaceHandler  interfaceHandler, AdsHandler adsHandler)
         {
             _context = context;
             _spritesAssetBundleLoader = spritesAssetBundleLoader;
             _scoreCoefficientLoader = scoreCoefficientLoader;
-            _interfaceController = interfaceController;
+            _interfaceHandler = interfaceHandler;
+            _adsHandler = adsHandler;
         }
 
         public void StartLoadData() =>
@@ -30,7 +33,13 @@ namespace Aplication
             Debug.Log("[DataLoadController] Start loading score coeficient.");
             yield return _scoreCoefficientLoader.LoadCoefitient();
             Debug.Log("[DataLoadController]All data loaded.");
-            _interfaceController.HidePreloader();
+            OnDataLoaded();
+        }
+
+        private void OnDataLoaded()
+        {
+            _interfaceHandler.HidePreloader();
+            _adsHandler.ShowBannerAd();
         }
     }
 }

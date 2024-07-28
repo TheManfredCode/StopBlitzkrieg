@@ -1,38 +1,40 @@
 ﻿using System;
+using Ads;
 using SceneManagement;
 using UI;
 using UnityEngine;
 
 namespace DefaultNamespace
 {
-    public class GameController : IDisposable
+    public class GameplayController : IDisposable
     {
-        private ClickableArea _clickableArea;
         private EnemySpawner _enemySpawner;
         private ScoreHandler _scoreHandler;
-        private InterfaceController _interfaceController;
+        private InterfaceHandler _interfaceHandler;
         private LevelScenesController _scenesController;
         private AnalyticsHandler _analyticsHandler;
+        private AdsHandler _adsHandler;
         private readonly int _killsToWinCount;
         private int _enemiesKilled;
         private bool _isGameStarted;
         
-        public GameController(ClickableArea clickableArea, 
+        public GameplayController( 
             EnemySpawner enemySpawner, 
             ScoreHandler scoreHandler, 
-            InterfaceController interfaceController,
+            InterfaceHandler interfaceHandler,
             LevelScenesController scenesController,
             LevelSceneConfig sceneConfig,
-            AnalyticsHandler analyticsHandler)
+            AnalyticsHandler analyticsHandler,
+            AdsHandler adsHandler)
         {
-            _clickableArea = clickableArea;
             _enemySpawner = enemySpawner;
             _scoreHandler = scoreHandler;
-            _interfaceController = interfaceController;
+            _interfaceHandler = interfaceHandler;
             _enemySpawner.Init();
             _scenesController = scenesController;
             _killsToWinCount = sceneConfig.KillsToWinCount;
             _analyticsHandler = analyticsHandler;
+            _adsHandler = adsHandler;
 
             AddListeners();
         }
@@ -40,16 +42,15 @@ namespace DefaultNamespace
         private void AddListeners()
         {
             _scoreHandler.HardModeScoreReached += OnHardModeScoreReached;
-            _clickableArea.ClickableAreaExit += OnClickableAreaExit;
             _enemySpawner.EnemyKilled += OnEnemyKilled;
-            _interfaceController.OnWindowShownEvent += PauseGame;
-            _interfaceController.OnStartGameClickEvent += StartGame;
-            _interfaceController.OnRestartGameClickEvent += RestartGame;
+            _interfaceHandler.OnWindowShownEvent += PauseGame;
+            _interfaceHandler.OnStartGameClickEvent += StartGame;
+            _interfaceHandler.OnRestartGameClickEvent += RestartGame;
         }
 
         private bool IsFinishLevelConditionsCompleted => _enemiesKilled == _killsToWinCount;
         
-        private void OnClickableAreaExit() =>
+        public void OnClickableAreaExit() =>
             GameOver();
 
         private void OnEnemyKilled()
@@ -68,13 +69,11 @@ namespace DefaultNamespace
             
             _scenesController.UnlockNextLevel();
             _scenesController.LoadLastScene();
-            _interfaceController.ShowFinishedLevelWindow();
+            _interfaceHandler.ShowFinishedLevelWindow();
         }
         
         private void OnHardModeScoreReached()
         {
-            //TODO return hardmode
-            //_enemySpawner.SwitchHardMode(true);
         }
 
         public void StartGame()
@@ -108,21 +107,22 @@ namespace DefaultNamespace
         
         private void GameOver()
         {
+            _adsHandler.ShowInterstitialAd();
+            
             if(_killsToWinCount > 0)
                 _analyticsHandler.LogLevelFail(_scenesController.CurrentLevel, _scoreHandler.GetScore());
             
             Time.timeScale = 0;
-            _interfaceController.ShowGameOverWindow();
+            _interfaceHandler.ShowGameOverWindow();
         }
 
         public void Dispose()
         {
             _scoreHandler.HardModeScoreReached -= OnHardModeScoreReached;
-            _clickableArea.ClickableAreaExit -= OnClickableAreaExit;
             _enemySpawner.EnemyKilled -= OnEnemyKilled;
-            _interfaceController.OnWindowShownEvent -= PauseGame;
-            _interfaceController.OnStartGameClickEvent -= StartGame;
-            _interfaceController.OnRestartGameClickEvent -= RestartGame;
+            _interfaceHandler.OnWindowShownEvent -= PauseGame;
+            _interfaceHandler.OnStartGameClickEvent -= StartGame;
+            _interfaceHandler.OnRestartGameClickEvent -= RestartGame;
         }
     }
 }

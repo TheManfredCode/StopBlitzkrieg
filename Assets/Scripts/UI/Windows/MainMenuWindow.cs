@@ -15,12 +15,12 @@ namespace UI
 
         public event Action SettingsButtonClicked;
 
-        private InterfaceController _interfaceController;
+        private InterfaceHandler _interfaceHandler;
         
         [Inject]
-        private void Construct(InterfaceController interfaceController)
+        private void Construct(InterfaceHandler interfaceHandler)
         {
-            _interfaceController = interfaceController;
+            _interfaceHandler = interfaceHandler;
         }
 
         protected override void SubscribeButtons()
@@ -43,13 +43,13 @@ namespace UI
 
         private void OnPlayButtonClick()
         {
-            _interfaceController.OnStartGameClick();
+            _interfaceHandler.OnStartGameClick();
             Close();
         }
         
         private void OnRestartButtonClick()
         {
-            _interfaceController.OnRestartGameClick();
+            _interfaceHandler.OnRestartGameClick();
             Close();
         }
         

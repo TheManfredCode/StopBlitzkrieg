@@ -1,24 +1,24 @@
 ﻿using System;
+using DefaultNamespace;
 using UnityEngine;
+using Zenject;
 
 public class ClickableArea : MonoBehaviour
 {
-    public event Action ClickableAreaExit;
+    private GameplayController _gameplayController;
+
+    [Inject]
+    private void Construct(GameplayController gameplayController) =>
+        _gameplayController = gameplayController;
     
-    private void OnEnable()
-    {
+    private void OnEnable() =>
         SetWidth(cameraWidth);
-    }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
+    private void OnTriggerEnter2D(Collider2D collision) =>
         OnClickableAreaEnter(collision);
-    }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
+    private void OnTriggerExit2D(Collider2D collision) =>
         OnClickableAreaExit(collision);
-    }
 
     private void SetWidth(float width)
     {
@@ -35,8 +35,8 @@ public class ClickableArea : MonoBehaviour
     private void OnClickableAreaExit(Collider2D collision)
     {
         if (collision.TryGetComponent(out Enemy enemy))
-            if(enemy.IsClickable)
-                ClickableAreaExit?.Invoke();
+            if (enemy.IsClickable)
+                _gameplayController.OnClickableAreaExit();
     }
 
     private float cameraWidth => Camera.main.orthographicSize * 2 * Camera.main.aspect;

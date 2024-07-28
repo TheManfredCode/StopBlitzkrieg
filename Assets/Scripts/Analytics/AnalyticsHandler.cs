@@ -50,4 +50,16 @@ public class AnalyticsHandler
         Analytics.CustomEvent(AnalyticsEventName.RewardedAdClicked);
         Debug.Log($"[Analytics] Log {AnalyticsEventName.RewardedAdClicked}.");
     }
+    
+    public void LogInterstitialAdClicked()
+    {
+        Analytics.CustomEvent(AnalyticsEventName.InterstitialAdClicked);
+        Debug.Log($"[Analytics] Log {AnalyticsEventName.InterstitialAdClicked}.");
+    }
+    
+    public void LogBannerAdClicked()
+    {
+        Analytics.CustomEvent(AnalyticsEventName.BannerAdClicked);
+        Debug.Log($"[Analytics] Log {AnalyticsEventName.BannerAdClicked}.");
+    }
 }

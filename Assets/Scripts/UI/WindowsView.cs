@@ -13,21 +13,21 @@ namespace UI
         [SerializeField] private FinishedLevelWindow _finishedLevelWindow;
 
         private List<BaseWindow> _openedWindows = new List<BaseWindow>();
-        private InterfaceController _interfaceController;
+        private InterfaceHandler _interfaceHandler;
 
         [Inject]
-        private void Construct(InterfaceController interfaceController)
+        private void Construct(InterfaceHandler interfaceHandler)
         {
-            _interfaceController = interfaceController;
+            _interfaceHandler = interfaceHandler;
             
             AfterConstructed();
         }
 
         private void AfterConstructed()
         {
-            _interfaceController.ShowGameOverWindowEvent += ShowGameOverWindow;
-            _interfaceController.ShowMainMenuWindowEvent += ShowMainMenuWindow;
-            _interfaceController.ShowFinishedLevelWindowEvent += ShowFinishedLevelWindow;
+            _interfaceHandler.ShowGameOverWindowEvent += ShowGameOverWindow;
+            _interfaceHandler.ShowMainMenuWindowEvent += ShowMainMenuWindow;
+            _interfaceHandler.ShowFinishedLevelWindowEvent += ShowFinishedLevelWindow;
         }
         
         private void OnEnable()

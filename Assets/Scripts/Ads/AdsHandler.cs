@@ -26,10 +26,15 @@ namespace Ads
 #endif
         private bool _isInitialized;
         private RewardedAd _rewardedAd;
+        private BannerAd _bannerAd;
+        private InterstitialAd _interstitialAd;
 
         public AdsHandler(AnalyticsHandler analyticsHandler)
         {
             _rewardedAd = new RewardedAd(analyticsHandler);
+            _bannerAd = new BannerAd(analyticsHandler);
+            _interstitialAd = new InterstitialAd(analyticsHandler);
+            
             Advertisement.Initialize(GameId, true, this);
         }
 
@@ -45,5 +50,15 @@ namespace Ads
             
             _rewardedAd.ShowAd(callback);
         }
+        
+        public void ShowInterstitialAd()
+        {
+            if (!_isInitialized) return;
+            
+            _interstitialAd.ShowAd();
+        }
+
+        public void ShowBannerAd() => 
+            _bannerAd.LoadBannerAd();
     }
 }

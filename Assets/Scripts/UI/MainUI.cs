@@ -8,12 +8,12 @@ namespace UI
     {
         [SerializeField] private Button _mainMenuButton;
 
-        private InterfaceController _interfaceController;
+        private InterfaceHandler _interfaceHandler;
         
         [Inject]
-        private void Construct(InterfaceController interfaceController)
+        private void Construct(InterfaceHandler interfaceHandler)
         {
-            _interfaceController = interfaceController;
+            _interfaceHandler = interfaceHandler;
         }
 
         private void OnEnable()
@@ -28,7 +28,7 @@ namespace UI
 
         private void OnMainMenuButtonClicked()
         {
-            _interfaceController.ShowMainMenuWindow();
+            _interfaceHandler.ShowMainMenuWindow();
         }
     }
 }

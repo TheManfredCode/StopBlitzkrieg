@@ -25,6 +25,10 @@ MonoBehaviour:
     m_Address: Assets/Scenes/TestScenes/TestS2.unity
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: cd24a7007cd5c4b4e861aeb8af120f29
+    m_Address: Assets/Scenes/GameScenes/Level1.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 0e75d12276be544428bfa22cdff8755e
     m_Address: Assets/Scenes/GameScenes/Level2.unity
     m_ReadOnly: 0
@@ -35,10 +39,6 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: 860ed55cac8c06b4798005aa5f5b2bbf
     m_Address: Assets/Scenes/GameScenes/Level4.unity
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: cd24a7007cd5c4b4e861aeb8af120f29
-    m_Address: Assets/Scenes/GameScenes/Level1.unity
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
