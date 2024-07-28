@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using Ads;
+using SceneManagement;
 using UI;
 using UnityEngine;
 using Zenject;
@@ -8,7 +8,7 @@ namespace Aplication
 {
     public class AppBaseInstaller : MonoInstaller
     {
-        [SerializeField] private List<string> _sceneKeys;
+        [SerializeField] private LevelSceneKeysConfig _sceneKeys;
 
         public override void InstallBindings()
         {

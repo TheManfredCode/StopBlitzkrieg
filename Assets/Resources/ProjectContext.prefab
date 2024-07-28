@@ -74,8 +74,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7256f91ba534594932bcc35275b068c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sceneKeys:
-  - Assets/Scenes/TestNew/Level1.unity
-  - Assets/Scenes/TestNew/Level2.unity
-  - Assets/Scenes/TestNew/Level3.unity
-  - Assets/Scenes/TestNew/Level4.unity
+  _sceneKeys: {fileID: 11400000, guid: 05e304f2287e82c45bae72963e286b5f, type: 2}

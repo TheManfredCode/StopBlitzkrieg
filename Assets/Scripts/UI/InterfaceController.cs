@@ -2,7 +2,7 @@
 
 namespace UI
 {
-    public class InterfaceController : IDisposable
+    public class InterfaceController
     {
         public event Action ShowGameOverWindowEvent;
         public event Action ShowMainMenuWindowEvent;
@@ -28,11 +28,6 @@ namespace UI
             ShowMainMenuWindowEvent.Invoke();
         }
 
-        public void ShowSettingsWindow()
-        {
-            OnWindowShownEvent.Invoke();
-        }
-
         public void ShowGameOverWindow()
         {
             ShowGameOverWindowEvent.Invoke();
@@ -49,11 +44,6 @@ namespace UI
         {
             HidePreloaderEvent.Invoke();
             ShowMainMenuWindow();
-        }
-
-        public void Dispose()
-        {
-            //_mainUi.MainMenuButtonClicked -= _windowsController.ShowMainMenuWindow;
         }
     }
 }

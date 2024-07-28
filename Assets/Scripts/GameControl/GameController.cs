@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using Ads;
-using Aplication;
 using SceneManagement;
 using UI;
 using UnityEngine;
@@ -52,11 +49,8 @@ namespace DefaultNamespace
 
         private bool IsFinishLevelConditionsCompleted => _enemiesKilled == _killsToWinCount;
         
-        private void OnClickableAreaExit()
-        {
-            //TODO return game over
-            //GameOver();
-        }
+        private void OnClickableAreaExit() =>
+            GameOver();
 
         private void OnEnemyKilled()
         {
@@ -71,6 +65,7 @@ namespace DefaultNamespace
         {
             if(_killsToWinCount > 0)
                 _analyticsHandler.LogLevelSuccess(_scenesController.CurrentLevel, _scoreHandler.GetScore());
+            
             _scenesController.UnlockNextLevel();
             _scenesController.LoadLastScene();
             _interfaceController.ShowFinishedLevelWindow();
@@ -102,10 +97,8 @@ namespace DefaultNamespace
             Time.timeScale = 1;
         }
 
-        public void PauseGame()
-        {
+        public void PauseGame() =>
             Time.timeScale = 0;
-        }
 
         public void ResumeGame()
         {

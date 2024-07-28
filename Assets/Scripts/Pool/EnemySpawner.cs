@@ -63,6 +63,7 @@ public class EnemySpawner : ObjectPool<Enemy>
 
     protected override void RestartPoolObject(Enemy poolObject)
     {
+        poolObject.ResetClickable();
         base.RestartPoolObject(poolObject);
         poolObject.SwitchFastMoveMode(false);
     }

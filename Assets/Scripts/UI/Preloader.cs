@@ -1,16 +1,10 @@
-﻿using System;
-using TMPro;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 using Zenject;
 
 namespace UI
 {
     public class Preloader :MonoBehaviour
     {
-        [SerializeField] private TMP_Text _errorLogLabel;
-        [SerializeField] private Button _reload;
-
         private InterfaceController _interfaceController;
         
         [Inject]
@@ -22,11 +16,10 @@ namespace UI
             AfterConstruct();
         }
 
-        private void AfterConstruct()
-        {
+        private void AfterConstruct() =>
             _interfaceController.HidePreloaderEvent += Hide;
-        }
 
-        private void Hide() => gameObject.SetActive(false);
+        private void Hide() => 
+            gameObject.SetActive(false);
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using DefaultNamespace;
+﻿using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,8 +19,7 @@ public class InputHandler : MonoBehaviour
         
         if (!rayHit.collider) return;
 
-        var clickable = rayHit
-            .collider.gameObject.GetComponent<IClickable>();
+        var clickable = rayHit.collider.gameObject.GetComponent<IClickable>();
 
         if (clickable == null) return;
         

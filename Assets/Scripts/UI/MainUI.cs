@@ -1,14 +1,11 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using UI.UIElements;
 using Zenject;
 
 namespace UI
 {
     public class MainUI : MonoBehaviour
     {
-        [SerializeField] private ScoreView _scoreView;
         [SerializeField] private Button _mainMenuButton;
 
         private InterfaceController _interfaceController;
@@ -18,11 +15,6 @@ namespace UI
         {
             _interfaceController = interfaceController;
         }
-        
-        // public void Init(ScoreHandler scoreHandler)
-        // {
-        //     _scoreView.Init(scoreHandler);
-        // }
 
         private void OnEnable()
         {

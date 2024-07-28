@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UI;
 using UnityEngine;
 
@@ -16,19 +15,13 @@ namespace Aplication
             SpritesAssetBundleLoader spritesAssetBundleLoader, InterfaceController  interfaceController)
         {
             _context = context;
-            //Debug.Log($"[DataLoadController] Created. context - {context.GetType()}");
-            
             _spritesAssetBundleLoader = spritesAssetBundleLoader;
             _scoreCoefficientLoader = scoreCoefficientLoader;
             _interfaceController = interfaceController;
-            
-            StartLoadData();
         }
 
-        public void StartLoadData()
-        {
+        public void StartLoadData() =>
             _context.StartCoroutine(LoadData());
-        }
 
         private IEnumerator LoadData()
         {

@@ -29,30 +29,14 @@ namespace UI.UIElements
             UpdateScoreCoeficientLabel(_scoreHandler.ScoreCoefficient);
             UpdateTopScoreLabel(_scoreHandler.GetTopScore());
         }
-        
-        public void Init(ScoreHandler scoreHandler)
-        {
-            scoreHandler.ScoreUpdated += UpdateScoreLabel;
-            scoreHandler.TopScoreUpdated += UpdateTopScoreLabel;
-            scoreHandler.ScoreCoeficientUpdated += UpdateScoreCoeficientLabel;
-            
-            UpdateScoreCoeficientLabel(scoreHandler.ScoreCoefficient);
-            UpdateTopScoreLabel(scoreHandler.GetTopScore());
-        }
 
-        private void UpdateScoreLabel(int value)
-        {
+        private void UpdateScoreLabel(int value) =>
             _scoreLabel.text = value.ToString();
-        }
         
-        private void UpdateTopScoreLabel(int value)
-        {
+        private void UpdateTopScoreLabel(int value) =>
             _topScoreLabel.text = value.ToString();
-        }
         
-        private void UpdateScoreCoeficientLabel(int value)
-        {
+        private void UpdateScoreCoeficientLabel(int value) =>
             _scoreCoeficientLabel.text = value.ToString();
-        }
     }
 }

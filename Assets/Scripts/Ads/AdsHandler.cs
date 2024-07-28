@@ -33,15 +33,11 @@ namespace Ads
             Advertisement.Initialize(GameId, true, this);
         }
 
-        public void OnInitializationComplete()
-        {
+        public void OnInitializationComplete() =>
             _isInitialized = true;
-        }
 
-        public void OnInitializationFailed(UnityAdsInitializationError error, string message)
-        {
+        public void OnInitializationFailed(UnityAdsInitializationError error, string message) =>
             Debug.LogError($"[AdsManager] Initialize ads failed - {message}");
-        }
 
         public void ShowRewardedAd(Action<bool> callback)
         {

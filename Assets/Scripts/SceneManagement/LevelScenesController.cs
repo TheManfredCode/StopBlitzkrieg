@@ -12,8 +12,10 @@ public class LevelScenesController
 
     public event Action<int> SceneKeyUpdateEvent;
 
-    public LevelScenesController(List<string> sceneKeys)
+    public LevelScenesController(LevelSceneKeysConfig sceneKeysConfig)
     {
+        var sceneKeys = sceneKeysConfig.SceneKeys;
+        
         if (sceneKeys == null || sceneKeys.Count == 0) return;
 
         _sceneLoader = new AddressableSceneLoader();

@@ -19,25 +19,17 @@ public class Enemy : MonoBehaviour, IClickable
 
     public bool HasShield => _hasShield;
 
-    private void Awake()
-    {
+    private void Awake() =>
         _enemyBehaviour = new EnemyBehaviour(this);
-    }
 
-    public void EnableClickable()
-    {
+    public void EnableClickable() =>
         _isClickable = true;
-    }
 
-    public void SwitchFastMoveMode(bool isHardModeOn)
-    {
+    public void SwitchFastMoveMode(bool isHardModeOn) =>
         _mover.SwitchFastMoveMode(isHardModeOn);
-    }
 
-    public void ChangeSprite(Sprite sprite)
-    {
+    public void ChangeSprite(Sprite sprite) =>
         _view.SetSprite(sprite);
-    }
 
     public void ChangeShieldVisible(bool value)
     {
@@ -76,13 +68,12 @@ public class Enemy : MonoBehaviour, IClickable
         _enemyBehaviour.ChangeState<AttackState>();
     }
 
-    public void OnClick()
-    {
+    public void OnClick() =>
         _enemyBehaviour.OnClick();
-    }
-
-    private void OnDisable()
-    {
+    
+    private void OnDisable() =>
         _isClickable = false;
-    }
+
+    public void ResetClickable() =>
+        _isClickable = false;
 }

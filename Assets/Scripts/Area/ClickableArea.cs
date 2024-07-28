@@ -35,12 +35,8 @@ public class ClickableArea : MonoBehaviour
     private void OnClickableAreaExit(Collider2D collision)
     {
         if (collision.TryGetComponent(out Enemy enemy))
-        {
             if(enemy.IsClickable)
-            {
                 ClickableAreaExit?.Invoke();
-            }
-        }
     }
 
     private float cameraWidth => Camera.main.orthographicSize * 2 * Camera.main.aspect;
