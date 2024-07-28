@@ -5,23 +5,23 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour, IClickable
 {
-    [SerializeField] private EnemyMover _mover;
-    [SerializeField] private EnemyView _view;
+    [SerializeField] protected EnemyMover _mover;
+    [SerializeField] protected EnemyView _view;
     [SerializeField] private float _dieAnimationTime;
 
-    private EnemyBehaviour _enemyBehaviour;
+    protected EnemyBehaviour _enemyBehaviour;
     private bool _isClickable;
-    private bool _hasShield = true;
 
     public event Action Killed;
 
     public bool IsClickable => _isClickable;
 
-    public bool HasShield => _hasShield;
-
-    private void Awake() =>
+    private void Awake() => 
+        OnAwake();
+    
+    protected virtual void OnAwake() => 
         _enemyBehaviour = new EnemyBehaviour(this);
-
+    
     public void EnableClickable() =>
         _isClickable = true;
 
@@ -31,25 +31,10 @@ public class Enemy : MonoBehaviour, IClickable
     public void ChangeSprite(Sprite sprite) =>
         _view.SetSprite(sprite);
 
-    public void ChangeShieldVisible(bool value)
-    {
-        if (value)
-        {
-            _view.ChangeShieldVisible(true);
-            _hasShield = false;
-            _isClickable = false;
-            _view.ChangeShieldIndicatorVisible(false);
-            return;
-        }
-
-        _isClickable = true;
-        _view.ChangeShieldVisible(false);
-    }
-
     public void StartDieAnimation()
     {
         _mover.StopMoving();
-        _view.StartDissolve(()=>Die(), _dieAnimationTime);
+        _view.StartDissolve(() => Die(), _dieAnimationTime);
     }
 
     public void Die(bool isInitializing = false)
@@ -61,7 +46,7 @@ public class Enemy : MonoBehaviour, IClickable
         gameObject.SetActive(false);
     }
 
-    public void Activate()
+    public virtual void Activate()
     {
         _view.ResetDissolveEffect();
         _mover.Restart();

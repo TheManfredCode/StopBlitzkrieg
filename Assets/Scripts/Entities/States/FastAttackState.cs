@@ -18,6 +18,8 @@
 
         public override void OnClick()
         {
+            if(!EnemyEntity.IsClickable) return;
+            
             StateSwitcher.ChangeState<DiedState>();
         }
     }

@@ -16,15 +16,9 @@
 
         public override void OnClick()
         {
-            if (EnemyEntity.HasShield)
-            {
-                //TODO return original behaviour
-                // StateSwitcher.ChangeState<ShieldAttackState>();
-                StateSwitcher.ChangeState<DiedState>();
-                return;
-            }
+            if (!EnemyEntity.IsClickable) return;
             
-            StateSwitcher.ChangeState<FastAttackState>();
+            StateSwitcher.ChangeState<DiedState>();
         }
     }
 }
