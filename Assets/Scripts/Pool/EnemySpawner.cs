@@ -5,7 +5,7 @@ using UI;
 using UnityEngine;
 using Zenject;
 
-public class EnemySpawner : ObjectPool<Enemy>
+public class EnemySpawner : ObjectPool<Enemy>, IInitializable, ITickable
 {
     private EnemiesSpritesController _spritesController;
     
@@ -78,5 +78,15 @@ public class EnemySpawner : ObjectPool<Enemy>
     {
         base.Clear();
         _spritesController.SpriteUpdated -= OnSpriteUpdated;
+    }
+
+    public void Initialize()
+    {
+        //throw new NotImplementedException();
+    }
+
+    public void Tick()
+    {
+        //throw new NotImplementedException();
     }
 }

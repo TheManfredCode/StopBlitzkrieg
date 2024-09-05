@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "596178621249",
+    "project_id": "stopblitzkrieg",
+    "storage_bucket": "stopblitzkrieg.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:596178621249:android:077b6b7ab9a0a9f83607c0",
+        "android_client_info": {
+          "package_name": "com.manfredcode.stopblitzkrieg"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfqSP_ea1APbOaCroimIn6WT01tGCdHac"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
